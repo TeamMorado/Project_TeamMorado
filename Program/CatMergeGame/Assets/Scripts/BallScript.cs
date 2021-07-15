@@ -82,9 +82,12 @@ public class BallScript : MonoBehaviour
         }
         if (collision.transform.tag == "Churu")
         {
-            SpawnBall.instance.DisableBallObject(this);
-            SpawnBall.instance.SetParticle(this.transform.position);
-            return;
+            if(SpawnBall.instance != null)
+            {
+                SpawnBall.instance.DisableBallObject(this);
+                SpawnBall.instance.SetParticle(this.transform.position);
+                return;
+            }
         }
     }
 
@@ -116,6 +119,11 @@ public class BallScript : MonoBehaviour
             {
                 otherBall.mRigidBody2D.AddForce(ReflectionFunc(collision) * -150f, ForceMode2D.Force);
             }
+        }
+
+        if(GameManager.instance == null)
+        {
+            return;
         }
 
         if(GameManager.instance.stateType == GameManager.eStateType.Destroy || GameManager.instance.stateType == GameManager.eStateType.End)
@@ -178,6 +186,10 @@ public class BallScript : MonoBehaviour
 
     private Vector2 ReflectionFunc(Collision2D collision)
     {
+        if(GameManager.instance == null)
+        {
+            return Vector2.zero;
+        }
         var m_list = GameManager.instance.m_listVec;
         int m_pos = m_list.Count - 1;
         if(m_pos == 0)

@@ -17,6 +17,7 @@ public class SpawnBall : MonoBehaviour
     public List<ParticleSystem> mList_Particle = new List<ParticleSystem>();
     public static SpawnBall instance;
     public int spawnNum = 0;
+    public bool bTest = false;
 
     [SerializeField]
     private bool bTestVer;
@@ -46,6 +47,10 @@ public class SpawnBall : MonoBehaviour
     }
     private void Update()
     {
+        if(bTest == true)
+        {
+            return;
+        }
         maxHeight = -10f;
         for (int i = 0; i < map_Use.Count; i++)
         {

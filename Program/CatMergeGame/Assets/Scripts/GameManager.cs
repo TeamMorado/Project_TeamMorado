@@ -82,6 +82,10 @@ public class GameManager : MonoSingleton<GameManager>
         for (int i = 0; i< m_listTextScore.Count;i++)
         {
             Text textScore = m_listTextScore[i];
+            if(textScore == null)
+            {
+                continue;
+            }
             textScore.text = nScore.ToString();
         }
     }
@@ -127,9 +131,18 @@ public class GameManager : MonoSingleton<GameManager>
     {
         bEndFirst = true;
         m_listProbability.Clear();
-        uiScore_Best.gameObject.SetActive(false);
-        uiScore_Normal.gameObject.SetActive(false);
-        uiManager.SetBackGround(false);
+        if (uiScore_Best != null)
+        {
+            uiScore_Best.gameObject.SetActive(false);
+        }
+        if(uiScore_Normal != null)
+        {
+            uiScore_Normal.gameObject.SetActive(false);
+        }
+        if(uiManager != null)
+        {
+            uiManager.SetBackGround(false);
+        }
         prefabNum = -1;
         int spawnIndex = m_listProbability.Count == 0 ? 0 : m_listProbability[Random.Range(0, m_listProbability.Count)];
         //selectBall = spawnBall.SpawnBallObject(spawnIndex, startPos);
@@ -139,7 +152,7 @@ public class GameManager : MonoSingleton<GameManager>
         SetState(eStateType.Spawn, true);
         limitLineObject.SetActive(false);
 
-        if (SoundManager.Instance != null)
+        if (SoundManager.Instance != null && uiManager != null)
         {
             slider_VFX.onValueChanged.AddListener(SoundManager.Instance.SetVolumeChangeVFX);
             slider_BGM.onValueChanged.AddListener(SoundManager.Instance.SetVolumeChangeBGM);
