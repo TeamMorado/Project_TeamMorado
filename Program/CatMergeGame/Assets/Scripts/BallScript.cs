@@ -121,22 +121,21 @@ public class BallScript : MonoBehaviour
             }
         }
 
-        if(GameManager.instance == null)
+        if(GameManager.instance != null)
         {
-            return;
+            if (GameManager.instance.stateType == GameManager.eStateType.Destroy || GameManager.instance.stateType == GameManager.eStateType.End)
+            {
+                return;
+            }
+
+            if (GameManager.instance.selectBall == this)
+            {
+                mRigidBody2D.gravityScale = ballOption.m_fGravity;
+                GameManager.instance.StopMoveFunc();
+            }
         }
 
-        if(GameManager.instance.stateType == GameManager.eStateType.Destroy || GameManager.instance.stateType == GameManager.eStateType.End)
-        {
-            return;
-        }
-
-        if (GameManager.instance.selectBall == this)
-        {
-            mRigidBody2D.gravityScale = ballOption.m_fGravity;
-            GameManager.instance.StopMoveFunc();
-            
-        }
+        
         BallScript ballScript_Connect = collision.transform.GetComponent<BallScript>();
         if (ballScript_Connect == null)
         {
@@ -146,7 +145,7 @@ public class BallScript : MonoBehaviour
         {
             return;
         }
-        if(this.ballType >= SpawnBall.instance.mList_BallPrefab.Count - 1)
+        if(SpawnBall.instance != null && this.ballType >= SpawnBall.instance.mList_BallPrefab.Count - 1)
         {
             return;
         }
@@ -170,7 +169,10 @@ public class BallScript : MonoBehaviour
         this.transform.DOMove(collisionPos, 0.075f).OnKill(() => {
             SpawnNewObject(ballScript_Connect);
             collisionPos.y += ballScript_Connect.mCollider2D.radius + 0.75f;
-            GameManager.instance.AddScore(this.m_Score_Merge, false, collisionPos);
+            if(GameManager.instance != null)
+            {
+                GameManager.instance.AddScore(this.m_Score_Merge, false, collisionPos);
+            }
         });
     }
 
@@ -178,10 +180,21 @@ public class BallScript : MonoBehaviour
     {
         int n_BallType = ballScript_Connect.ballType;
         Vector2 spawnPos = ballScript_Connect.transform.position;
-        SpawnBall.instance.SetParticle(spawnPos);
-        SpawnBall.instance.DisableBallObject(ballScript_Connect);
-        SpawnBall.instance.DisableBallObject(this);
-        SpawnBall.instance.SpawnBallObject(n_BallType + 1, spawnPos, true);
+        if(SpawnBall.instance != null)
+        {
+            SpawnBall.instance.SetParticle(spawnPos);
+            SpawnBall.instance.DisableBallObject(ballScript_Connect);
+            SpawnBall.instance.DisableBallObject(this);
+            SpawnBall.instance.SpawnBallObject(n_BallType + 1, spawnPos, true);
+        }
+        if(TestScript.Instance != null)
+        {
+            TestScript.Instance.SpawnBallObject(spawnPos, this.ballType + 1);
+            TestScript.Instance.ListBallUse.Remove(ballScript_Connect);
+            TestScript.Instance.ListBallUse.Remove(this);
+            Destroy(ballScript_Connect.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 
     private Vector2 ReflectionFunc(Collision2D collision)

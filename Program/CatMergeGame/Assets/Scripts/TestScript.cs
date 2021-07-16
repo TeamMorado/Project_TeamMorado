@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class TestScript : MonoBehaviour
+public class TestScript : MonoSingleton<TestScript>
 {
     public List<BallScript> m_listBallScript = new List<BallScript>();
     public float m_fSpawnTime = 0.5f;
@@ -32,6 +32,8 @@ public class TestScript : MonoBehaviour
     private List<int> m_listProbability = new List<int>();
     private float presentTime = 0f;
     private bool bEndCheck = false;
+
+    private int nTotalSpawnNum = 0;
 
     private void Awake()
     {
@@ -107,7 +109,21 @@ public class TestScript : MonoBehaviour
         spawnObject.mRigidBody2D.gravityScale = spawnPrefab.ballOption.m_fGravity;
         spawnObject.bSpawnWaiting = false;
         spawnObject.bEnableMerge = true;
+        spawnObject.spawnNum = nTotalSpawnNum++;
         m_listBallUse.Add(spawnObject);
+    }
+
+    public void SpawnBallObject(Vector2 pos, int ballType)
+    {
+        BallScript spawnPrefab = m_listBallScript[ballType];
+
+        BallScript spawnObject = Instantiate(spawnPrefab);
+        spawnObject.transform.position = pos;
+        spawnObject.mRigidBody2D.gravityScale = spawnPrefab.ballOption.m_fGravity;
+        spawnObject.bSpawnWaiting = false;
+        spawnObject.bEnableMerge = true;
+        spawnObject.spawnNum = nTotalSpawnNum++;
+        m_listBallUse.Add(spawnObject); 
     }
 
 
