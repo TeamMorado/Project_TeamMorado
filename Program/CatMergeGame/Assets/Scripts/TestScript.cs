@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class TestScript : MonoSingleton<TestScript>
+public class TestScript : MonoBehaviour
 {
+    public static TestScript Instance;
     public List<BallScript> m_listBallScript = new List<BallScript>();
     public float m_fSpawnTime = 0.5f;
     public float maxHeight = -100f;
@@ -37,6 +38,7 @@ public class TestScript : MonoSingleton<TestScript>
 
     private void Awake()
     {
+        Instance = this;
         Setup();
     }
 

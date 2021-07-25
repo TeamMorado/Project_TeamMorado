@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class SkillManager : MonoBehaviour
     private Vector3 m_churuStartPos;
     private Vector3 m_churuEndPos;
 
+    public List<Image> m_listImage = new List<Image>();
+    public List<Sprite> m_listSprite = new List<Sprite>();
+    public List<Text> m_listText = new List<Text>();
+
+
     private void Awake()
     {
         Setup();
@@ -45,6 +51,23 @@ public class SkillManager : MonoBehaviour
 
         m_churuSpriteRendererSize = m_churuSpriteRenderer.sprite.bounds.size;
         m_churuSpriteLocalSize = m_churuSpriteRenderer.transform.localScale;
+    }
+
+    public void SetButtonInfo(int nIndex, bool bActive, string szHour, string szCount)
+    {
+        Image buttonImage = m_listImage[nIndex];
+        if(buttonImage != null)
+        {
+            buttonImage.sprite = m_listSprite[(nIndex == 0 ? 0 : 2) + (bActive == true ? 0 : 1)];
+        }
+        Text buttonText = m_listText[nIndex];
+        Text buttonHourText = m_listText[nIndex + 2];
+        buttonHourText.gameObject.SetActive(!bActive);
+        if (bActive == false)
+        {
+            buttonHourText.text = string.Format("{0}h", szHour);
+        }
+        buttonText.text = szCount;
     }
 
     public void RewardAdsFunc(int nIndex)
@@ -95,6 +118,10 @@ public class SkillManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(m_limitTime);
                 BallScript p_ballScript = m_listDisableBall[i];
+                if(p_ballScript.bSpawnWaiting == true)
+                {
+                    continue;
+                }
                 SpawnBall.instance.SetParticle(p_ballScript.transform.position);
                 GameManager.instance.AddScore(p_ballScript.m_Score_Pop, true, Vector2.zero);
                 m_SpawnBall.DisableBallObject(p_ballScript);

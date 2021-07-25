@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
         UI_Option = 0,
         UI_Back,
         UI_RemoveADS,
+        UI_RemoveBall,
+        UI_SpawnChuru,
         Button_Option,
         Button_OptionClose,
         Button_Back,
@@ -21,6 +23,10 @@ public class UIManager : MonoBehaviour
         Button_RemoveADSClose,
         Button_RemoveBall,
         Button_SpawnChuru,
+        Button_RemoveBallClose,
+        Button_SpawnChuruClose,
+        Button_RemoveBallUse,
+        Button_SpawnChuruUse,
         Sprite_Combo,
         Max
     }
@@ -55,6 +61,7 @@ public class UIManager : MonoBehaviour
     public Sprite n_spriteDisableADSButton;
     private string removeAds = "remove_ads";
     private bool bCheckRemoveADS;
+    public DateManager m_DateManager;
 
     private void Awake()
     {
@@ -162,12 +169,45 @@ public class UIManager : MonoBehaviour
                 SetRemoveADSUI(false);
                 break;
             case eIndex.Button_RemoveBall:
+                if (m_DateManager.CheckEnableSkill(0) == false)
+                {
+                    return;
+                }
+                if(CheckState() == true)
+                {
+                    return;
+                }
+                SetRemoveBallUI(true);
+                break;
+            case eIndex.Button_RemoveBallClose:
+                SetRemoveBallUI(false);
+                break;
+            case eIndex.Button_RemoveBallUse:
                 AdmobManager.Instance.ShowRewardAd(0);
                 break;
             case eIndex.Button_SpawnChuru:
+                if (m_DateManager.CheckEnableSkill(1) == false)
+                {
+                    return;
+                }
+                if (CheckState() == true)
+                {
+                    return;
+                }
+                SetChuruUI(true);
+                break;
+            case eIndex.Button_SpawnChuruClose:
+                SetChuruUI(false);
+                break;
+            case eIndex.Button_SpawnChuruUse:
                 AdmobManager.Instance.ShowRewardAd(1);
                 break;
         }
+    }
+
+    private bool CheckState()
+    {
+        return GameManager.Instance.stateType == GameManager.eStateType.SetDestroy || GameManager.Instance.stateType == GameManager.eStateType.Destroy || GameManager.Instance.stateType == GameManager.eStateType.End;
     }
 
     public void SetRemoveADSUI(bool bActive)
@@ -183,6 +223,16 @@ public class UIManager : MonoBehaviour
     public void SetBackUI(bool bActive)
     {
         m_listUIObject[(int)eIndex.UI_Back].SetActive(bActive);
+    }
+
+    public void SetRemoveBallUI(bool bActive)
+    {
+        m_listUIObject[(int)eIndex.UI_RemoveBall].SetActive(bActive);
+    }
+
+    public void SetChuruUI(bool bActive)
+    {
+        m_listUIObject[(int)eIndex.UI_SpawnChuru].SetActive(bActive);
     }
 
     public void SetCombo(int pCombo, Vector2 pPos)

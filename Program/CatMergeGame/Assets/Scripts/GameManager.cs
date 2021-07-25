@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using com.adjust.sdk;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -249,6 +250,9 @@ public class GameManager : MonoSingleton<GameManager>
                 selectUI.SetScoreText(nScore);
                 if(bFlagMax == true)
                 {
+                    AdjustEvent adjustEvent = new AdjustEvent("highest score achieved");
+                    adjustEvent.addCallbackParameter("highstScore", nScore.ToString());
+                    Adjust.trackEvent(adjustEvent);
                     PlayerPrefs.SetInt(scoreKey, nScore);
                 }
                 else if(bFlagMax == false)

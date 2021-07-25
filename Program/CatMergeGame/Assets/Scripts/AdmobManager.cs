@@ -17,7 +17,7 @@ public class AdmobManager : MonoSingleton<AdmobManager>
 
     void Start()
     {
-        LoadRewardAd();
+        //LoadRewardAd();
         //PlayerPrefs.SetInt(removeAds,0);
         bCheckRemoveADS = PlayerPrefs.GetInt(removeAds, 0) == 1;
         if(bCheckRemoveADS)
