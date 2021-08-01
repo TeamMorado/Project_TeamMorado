@@ -177,13 +177,18 @@ public class UIManager : MonoBehaviour
                 {
                     return;
                 }
+                SetBackGround(true);
                 SetRemoveBallUI(true);
                 break;
             case eIndex.Button_RemoveBallClose:
                 SetRemoveBallUI(false);
                 break;
             case eIndex.Button_RemoveBallUse:
+                m_DateManager.ReduceADSCount(0);
                 AdmobManager.Instance.ShowRewardAd(0);
+
+                SetBackGround(false);
+                SetRemoveADSUI(false);
                 break;
             case eIndex.Button_SpawnChuru:
                 if (m_DateManager.CheckEnableSkill(1) == false)
@@ -194,13 +199,19 @@ public class UIManager : MonoBehaviour
                 {
                     return;
                 }
+                SetBackGround(true);
                 SetChuruUI(true);
                 break;
             case eIndex.Button_SpawnChuruClose:
+                SetBackGround(false);
                 SetChuruUI(false);
                 break;
             case eIndex.Button_SpawnChuruUse:
+                m_DateManager.ReduceADSCount(1);
                 AdmobManager.Instance.ShowRewardAd(1);
+
+                SetBackGround(false);
+                SetChuruUI(false);
                 break;
         }
     }

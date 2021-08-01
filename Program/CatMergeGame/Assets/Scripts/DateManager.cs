@@ -25,6 +25,7 @@ public class DateManager : MonoBehaviour
 
     private void Awake()
     {
+        //PlayerPrefs.DeleteAll();
         InitSkillCount();
     }
 
@@ -72,11 +73,6 @@ public class DateManager : MonoBehaviour
                 {
                     if(nSkillCount_RemoveBall > 0)
                     {
-                        nSkillCount_RemoveBall -= 1;
-                        if (nSkillCount_RemoveBall <= 0)
-                            bSkillEnable_RemoveBall = false;
-                        PlayerPrefs.SetInt(szKey_RemoveBall, nSkillCount_RemoveBall);
-                        m_SkillManager.SetButtonInfo(0, bSkillEnable_RemoveBall, GetLimitHour().ToString(), nSkillCount_RemoveBall.ToString());
                         return true;
                     }
                 }
@@ -85,17 +81,37 @@ public class DateManager : MonoBehaviour
                 {
                     if (nSkillCount_CreateChuru > 0)
                     {
-                        nSkillCount_CreateChuru -= 1;
-                        if (nSkillCount_CreateChuru <= 0)
-                            bSkillEnable_CreateChuru = false;
-                        PlayerPrefs.SetInt(szKey_CreateChuru, nSkillCount_CreateChuru);
-                        m_SkillManager.SetButtonInfo(1, bSkillEnable_CreateChuru, GetLimitHour().ToString(), nSkillCount_CreateChuru.ToString());
                         return true;
                     }
                 }
                 break;
         }
         return false;
+    }
+
+    public void ReduceADSCount(int skillType)
+    {
+        switch (skillType)
+        {
+            case 0:
+                {
+                    nSkillCount_RemoveBall -= 1;
+                    if (nSkillCount_RemoveBall <= 0)
+                        bSkillEnable_RemoveBall = false;
+                    PlayerPrefs.SetInt(szKey_RemoveBall, nSkillCount_RemoveBall);
+                    m_SkillManager.SetButtonInfo(0, bSkillEnable_RemoveBall, GetLimitHour().ToString(), nSkillCount_RemoveBall.ToString());
+                }
+                break;
+            case 1:
+                {
+                    nSkillCount_CreateChuru -= 1;
+                    if (nSkillCount_CreateChuru <= 0)
+                        bSkillEnable_CreateChuru = false;
+                    PlayerPrefs.SetInt(szKey_CreateChuru, nSkillCount_CreateChuru);
+                    m_SkillManager.SetButtonInfo(1, bSkillEnable_CreateChuru, GetLimitHour().ToString(), nSkillCount_CreateChuru.ToString());
+                }
+                break;
+        }
     }
 
     private void InitSkillCount()

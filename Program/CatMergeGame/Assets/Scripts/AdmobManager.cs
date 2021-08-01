@@ -2,19 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GoogleMobileAds.Api;
+using UnityEngine.Advertisements;
 using System;
 
-public class AdmobManager : MonoSingleton<AdmobManager>
+public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitializationListener
 {
-    public bool isTestMode;
-    public Action actionForFrontAds;
-    private string removeAds = "remove_ads";
+    [SerializeField] string _androidGameId;
+    [SerializeField] string _iOsGameId;
+    [SerializeField] bool _testMode = true;
+    [SerializeField] bool _enablePerPlacementMode = true;
+    private string _gameId;
+    private const string removeAds = "remove_ads";
+
+    [SerializeField] InterstitialAdExample m_InterstitialAd;
+    [SerializeField] RewardedAdsButton m_RewardedAdsButton;
+    [SerializeField] BannerAdExample m_BannerAdExample;
+
+    private Action m_frontAdsAction;
+
+    protected override void Setup()
+    {
+        bCheckRemoveADS = PlayerPrefs.GetInt(removeAds, 0) == 1;
+        InitializeAds();
+    }
+
+    public void InitializeAds()
+    {
+        _gameId = (Application.platform == RuntimePlatform.IPhonePlayer)
+            ? _iOsGameId
+            : _androidGameId;
+        Advertisement.Initialize(_gameId, _testMode, _enablePerPlacementMode, this);
+    }
+
+    public void OnInitializationComplete()
+    {
+        Debug.Log("Unity Ads initialization complete.");
+        if(bCheckRemoveADS == false)
+        {
+            m_InterstitialAd.LoadAd();
+            m_BannerAdExample.LoadBanner();
+        }
+        m_RewardedAdsButton.LoadAd();
+    }
+
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+    }
+
+    public void SetFrontAdsAction(Action frontAdsAction)
+    {
+        m_frontAdsAction = frontAdsAction;
+        m_InterstitialAd.actionForFrontAds = frontAdsAction;
+    }
+
+    public void SetRewardAdsAction(Action<int> frontAdsAction)
+    {
+        m_RewardedAdsButton.actionForRewardAds = frontAdsAction;
+    }
+
+
     public bool bCheckRemoveADS;
 
-    private int m_nIndex = 0;
-    public Action<int> actionForRewardAds;
+    public void ShowFrontAd()
+    {
+        if(bCheckRemoveADS == true)
+        {
+            m_frontAdsAction.Invoke();
+            return;
+        }
+        m_InterstitialAd.ShowAd();
+    }
 
+    public void ToggleBannerAd(bool bValue)
+    {
+        if(bValue == false)
+        {
+            m_BannerAdExample.HideBannerAd();
+        }
+    }
+
+    public void ShowRewardAd(int nIndex)
+    {
+        m_RewardedAdsButton.SetSelectIndex(nIndex);
+        m_RewardedAdsButton.ShowAd();
+    }
+
+    /*
     void Start()
     {
         //LoadRewardAd();
@@ -128,4 +202,5 @@ public class AdmobManager : MonoSingleton<AdmobManager>
         LoadRewardAd();
     }
     #endregion
+    //*/
 }

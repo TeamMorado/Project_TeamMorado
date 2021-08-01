@@ -121,7 +121,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
-        AdmobManager.Instance.actionForFrontAds = Setup;
+        AdmobManager.Instance.SetFrontAdsAction(Setup);
         SetState(eStateType.ShowADS);
         //Setup();
     }

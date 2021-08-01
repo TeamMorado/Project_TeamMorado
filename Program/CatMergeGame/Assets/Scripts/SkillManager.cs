@@ -37,7 +37,7 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {
-        AdmobManager.Instance.actionForRewardAds += RewardAdsFunc;
+        AdmobManager.Instance.SetRewardAdsAction(RewardAdsFunc);
     }
 
     public void Setup()
