@@ -210,6 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SkillManager: {fileID: 2083970551}
+  nSkillCount_RemoveBallTotalCount: 10
+  nSkillCount_CreateChuruTotalCount: 3
 --- !u!4 &40355992
 Transform:
   m_ObjectHideFlags: 0

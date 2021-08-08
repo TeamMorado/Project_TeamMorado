@@ -23,7 +23,6 @@ public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitialization
 
     protected override void Setup()
     {
-        PlayerPrefs.DeleteAll();
         bCheckRemoveADS = PlayerPrefs.GetInt(removeAds, 0) == 1;
         InitializeAds();
     }

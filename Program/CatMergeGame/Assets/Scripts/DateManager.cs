@@ -13,8 +13,9 @@ public class DateManager : MonoBehaviour
 
     private string szKey_RemoveBall = "Skill_RemoveBall";
     private string szKey_CreateChuru = "Skill_CreateChuru";
-    private const int nSkillCount_RemoveBallTotalCount = 2;
-    private const int nSkillCount_CreateChuruTotalCount = 1;
+    public int nSkillCount_RemoveBallTotalCount = 2;
+    public int nSkillCount_CreateChuruTotalCount = 1;
+    public bool bReset;
     private int nSkillCount_RemoveBall;
     private int nSkillCount_CreateChuru;
     private bool bSkillEnable_RemoveBall;
@@ -25,6 +26,10 @@ public class DateManager : MonoBehaviour
 
     private void Awake()
     {
+        if(bReset)
+        {
+            PlayerPrefs.DeleteAll();
+        }
         //PlayerPrefs.DeleteAll();
         InitSkillCount();
     }
