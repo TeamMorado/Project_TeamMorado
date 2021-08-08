@@ -1,2 +1,9 @@
 lastUpgrade=01012
 proj.pluginVersion=0.10.12
+proj.AppId=96941773828
+and.BundleId=com.DefaultCompany.CatMergeGame
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e96941773828%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.DefaultCompany.CatMergeGame%3c%2fstring%3e%0d%0a++%3c%21--achievement+Open+Game--%3e%0d%0a++%3cstring+name%3d%22achievement_open_game%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+5th+Cat+Open--%3e%0d%0a++%3cstring+name%3d%22achievement_5th_cat_open%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQAg%3c%2fstring%3e%0d%0a++%3c%21--achievement+10th+Cat+Open--%3e%0d%0a++%3cstring+name%3d%22achievement_10th_cat_open%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQAw%3c%2fstring%3e%0d%0a++%3c%21--achievement+Access+for+more+than+7+days--%3e%0d%0a++%3cstring+name%3d%22achievement_access_for_more_than_7_days%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQBA%3c%2fstring%3e%0d%0a++%3c%21--achievement+Summon+more+than+1%2c000+cats--%3e%0d%0a++%3cstring+name%3d%22achievement_summon_more_than_1000_cats%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQBQ%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+High+Score--%3e%0d%0a++%3cstring+name%3d%22leaderboard_high_score%22+translatable%3d%22false%22%3eCgkIhKi4kekCEAIQAA%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=96941773828-ctvl6305k6nb0lsvqffdl4qa9f03imht.apps.googleusercontent.com
+android.SetupDone=true

@@ -19,9 +19,11 @@ public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitialization
     [SerializeField] BannerAdExample m_BannerAdExample;
 
     private Action m_frontAdsAction;
+    private Action<int> m_rewardAdsAction;
 
     protected override void Setup()
     {
+        PlayerPrefs.DeleteAll();
         bCheckRemoveADS = PlayerPrefs.GetInt(removeAds, 0) == 1;
         InitializeAds();
     }
@@ -56,9 +58,10 @@ public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitialization
         m_InterstitialAd.actionForFrontAds = frontAdsAction;
     }
 
-    public void SetRewardAdsAction(Action<int> frontAdsAction)
+    public void SetRewardAdsAction(Action<int> rewardAdsAction)
     {
-        m_RewardedAdsButton.actionForRewardAds = frontAdsAction;
+        m_rewardAdsAction = rewardAdsAction;
+        m_RewardedAdsButton.actionForRewardAds = rewardAdsAction;
     }
 
 
@@ -66,7 +69,7 @@ public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitialization
 
     public void ShowFrontAd()
     {
-        if(bCheckRemoveADS == true)
+        if(bCheckRemoveADS == true || Application.isEditor)
         {
             m_frontAdsAction.Invoke();
             return;
@@ -84,6 +87,11 @@ public class AdmobManager : MonoSingleton<AdmobManager>, IUnityAdsInitialization
 
     public void ShowRewardAd(int nIndex)
     {
+        if (Application.isEditor)
+        {
+            m_rewardAdsAction?.Invoke(nIndex);
+            return;
+        }
         m_RewardedAdsButton.SetSelectIndex(nIndex);
         m_RewardedAdsButton.ShowAd();
     }

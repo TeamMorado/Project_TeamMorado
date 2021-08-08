@@ -181,6 +181,7 @@ public class UIManager : MonoBehaviour
                 SetRemoveBallUI(true);
                 break;
             case eIndex.Button_RemoveBallClose:
+                SetBackGround(false);
                 SetRemoveBallUI(false);
                 break;
             case eIndex.Button_RemoveBallUse:
@@ -188,7 +189,7 @@ public class UIManager : MonoBehaviour
                 AdmobManager.Instance.ShowRewardAd(0);
 
                 SetBackGround(false);
-                SetRemoveADSUI(false);
+                SetRemoveBallUI(false);
                 break;
             case eIndex.Button_SpawnChuru:
                 if (m_DateManager.CheckEnableSkill(1) == false)

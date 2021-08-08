@@ -69,6 +69,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Slider slider_VFX;
     public Slider slider_BGM;
     public Text testText;
+    public PlayGames m_PlayGames;
 
     private bool bFlagNextFrame = false;
 
@@ -254,6 +255,10 @@ public class GameManager : MonoSingleton<GameManager>
                     adjustEvent.addCallbackParameter("highstScore", nScore.ToString());
                     Adjust.trackEvent(adjustEvent);
                     PlayerPrefs.SetInt(scoreKey, nScore);
+                    if(m_PlayGames != null)
+                    {
+                        m_PlayGames.AddScoreToLeaderboard();
+                    }
                 }
                 else if(bFlagMax == false)
                 {

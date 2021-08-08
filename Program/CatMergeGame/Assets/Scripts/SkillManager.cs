@@ -13,8 +13,9 @@ public class SkillManager : MonoBehaviour
     private Coroutine corDisableBallObject = null;
 
     [Header("Move Churu")]
-    public float m_churuDuration = 2f;
+    public float m_churuDuration = 1f;
     public SpriteRenderer m_churuSpriteRenderer = null;
+    public SpriteRenderer m_churuSpriteRendererEffect = null;
     public AnimationCurve m_churuAnimationCurve;
     private Coroutine m_corSpawnChuru = null;
     public Camera cam;
@@ -22,6 +23,8 @@ public class SkillManager : MonoBehaviour
     private Vector3 m_churuScreenPos;
     private Vector3 m_churuSpriteRendererSize;
     private Vector3 m_churuSpriteLocalSize;
+    private Vector3 m_churuSpriteRendererEffectSize;
+    private Vector3 m_churuSpriteLocalEffectSize;
     private Vector3 m_churuStartPos;
     private Vector3 m_churuEndPos;
 
@@ -51,6 +54,9 @@ public class SkillManager : MonoBehaviour
 
         m_churuSpriteRendererSize = m_churuSpriteRenderer.sprite.bounds.size;
         m_churuSpriteLocalSize = m_churuSpriteRenderer.transform.localScale;
+
+        m_churuSpriteRendererEffectSize = m_churuSpriteRendererEffect.sprite.bounds.size;
+        m_churuSpriteLocalEffectSize = m_churuSpriteRendererEffect.transform.localScale;
     }
 
     public void SetButtonInfo(int nIndex, bool bActive, string szHour, string szCount)
@@ -112,20 +118,17 @@ public class SkillManager : MonoBehaviour
 
     public IEnumerator IDisableBallObject(List<BallScript> m_listDisableBall)
     {
-        lock (m_listDisableBall)
+        for (int i = 0; i < m_listDisableBall.Count; i++)
         {
-            for (int i = 0; i < m_listDisableBall.Count; i++)
+            yield return new WaitForSeconds(m_limitTime);
+            BallScript p_ballScript = m_listDisableBall[i];
+            if (p_ballScript.bSpawnWaiting == true)
             {
-                yield return new WaitForSeconds(m_limitTime);
-                BallScript p_ballScript = m_listDisableBall[i];
-                if(p_ballScript.bSpawnWaiting == true)
-                {
-                    continue;
-                }
-                SpawnBall.instance.SetParticle(p_ballScript.transform.position);
-                GameManager.instance.AddScore(p_ballScript.m_Score_Pop, true, Vector2.zero);
-                m_SpawnBall.DisableBallObject(p_ballScript);
+                continue;
             }
+            SpawnBall.instance.SetParticle(p_ballScript.transform.position);
+            GameManager.instance.AddScore(p_ballScript.m_Score_Pop, true, Vector2.zero);
+            m_SpawnBall.DisableBallObject(p_ballScript);
         }
         m_SpawnBall.SetBallFreeze(false);
         m_GameManager.SetPrevState();
@@ -149,9 +152,10 @@ public class SkillManager : MonoBehaviour
         float startTime = 0f;
         m_churuSpriteRenderer.transform.position = m_churuStartPos;
         yield return null;
-        //*
-        m_churuStartPos = m_churuScreenPos + new Vector3(p_posX, m_churuSpriteRendererSize.y * m_churuSpriteLocalSize.y * 0.5f, 0f);
-        m_churuEndPos = -m_churuScreenPos + new Vector3(p_posX, -m_churuSpriteRendererSize.y * m_churuSpriteLocalSize.y * 0.5f, 0f);
+        float height = (m_churuSpriteRendererSize.y * m_churuSpriteLocalSize.y) + (m_churuSpriteRendererEffectSize.y * m_churuSpriteLocalEffectSize.y);
+        m_churuStartPos = m_churuScreenPos + new Vector3(p_posX, height, 0f);
+        m_churuEndPos = -m_churuScreenPos + new Vector3(p_posX, -height, 0f);
+
         while (startTime < m_churuDuration)
         {
             m_churuSpriteRenderer.transform.position = Vector3.Lerp(m_churuStartPos, m_churuEndPos, m_churuAnimationCurve.Evaluate((startTime / m_churuDuration)));
