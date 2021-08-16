@@ -19,6 +19,8 @@ public class SpawnBall : MonoBehaviour
     public int spawnNum = 0;
     public bool bTest = false;
 
+    private int[] m_listBallCount = new int[11];
+
     [SerializeField]
     private bool bTestVer;
     [SerializeField]
@@ -226,5 +228,38 @@ public class SpawnBall : MonoBehaviour
             .ToList();
 
         return p_listDisable;
+    }
+
+    public int GetMaximumBall()
+    {
+        for (int i = 0; i < m_listBallCount.Length; i++)
+        {
+            m_listBallCount[i] = 0;
+        }
+
+        for (int i = 0; i < map_Use.Count; i++)
+        {
+            BallScript pBallUse = map_Use[i];
+            int ballType = pBallUse.ballType;
+            if(ballType >= m_listBallCount.Length)
+            {
+                continue;
+            }
+            m_listBallCount[ballType] += 1;
+        }
+
+        int returnValue = 0;
+        int maxValue = m_listBallCount[0];
+        for (int i = 1; i < m_listBallCount.Length; i++)
+        {
+            int nValue = m_listBallCount[i];
+            if(maxValue < nValue)
+            {
+                returnValue = i;
+                maxValue = nValue;
+            }
+        }
+
+        return returnValue;
     }
 }

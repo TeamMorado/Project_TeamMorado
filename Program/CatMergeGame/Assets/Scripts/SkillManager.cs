@@ -89,6 +89,10 @@ public class SkillManager : MonoBehaviour
         switch(nIndex)
         {
             case 0:
+                if(m_SpawnBall != null)
+                {
+                    m_nDestroyNum = m_SpawnBall.GetMaximumBall();
+                }
                 DestroyBallType(m_nDestroyNum);
                 break;
 

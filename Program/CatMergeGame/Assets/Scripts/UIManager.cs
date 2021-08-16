@@ -56,6 +56,7 @@ public class UIManager : MonoBehaviour
     public MoveScene moveScene;
     public ExitGame exitGame;
     private Vector2 localVec = Vector2.one;
+    public Text m_imageWarningItem;
 
     public GameObject m_backGroundObject;
     public Sprite n_spriteDisableADSButton;
@@ -175,6 +176,7 @@ public class UIManager : MonoBehaviour
                 }
                 if(CheckState() == true)
                 {
+                    StartWarningText();
                     return;
                 }
                 SetBackGround(true);
@@ -198,6 +200,7 @@ public class UIManager : MonoBehaviour
                 }
                 if (CheckState() == true)
                 {
+                    StartWarningText();
                     return;
                 }
                 SetBackGround(true);
@@ -219,7 +222,10 @@ public class UIManager : MonoBehaviour
 
     private bool CheckState()
     {
-        return GameManager.Instance.stateType == GameManager.eStateType.SetDestroy || GameManager.Instance.stateType == GameManager.eStateType.Destroy || GameManager.Instance.stateType == GameManager.eStateType.End;
+        return GameManager.Instance.stateType == GameManager.eStateType.SetDestroy
+            || GameManager.Instance.stateType == GameManager.eStateType.Destroy
+            || GameManager.Instance.stateType == GameManager.eStateType.End
+            || GameManager.Instance.spawnBall.map_Use.Count <= 1;
     }
 
     public void SetRemoveADSUI(bool bActive)
@@ -350,5 +356,22 @@ public class UIManager : MonoBehaviour
         {
             m_backGroundObject.SetActive(bActive);
         }
+    }
+
+    public void StartWarningText()
+    {
+        m_imageWarningItem.gameObject.SetActive(true);
+        Color color = m_imageWarningItem.color;
+        color.a = 0;
+        m_imageWarningItem.color = color;
+        m_imageWarningItem.DOFade(1f, 0.1f)
+            .OnKill(() =>
+            {
+                m_imageWarningItem.DOFade(0f, 0.1f).SetDelay(1f)
+                .OnKill(() =>
+                {
+                    m_imageWarningItem.gameObject.SetActive(false);
+                });
+            });
     }
 }
