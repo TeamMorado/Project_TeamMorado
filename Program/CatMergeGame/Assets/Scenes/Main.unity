@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Camera: {fileID: 519420031}
   rootCanvas: {fileID: 1952854687}
   panelRect: {fileID: 1658052453}
+  backPanelRect: {fileID: 1840756561}
   m_listButton:
   - {fileID: 1977042971}
   - {fileID: 1692317183}
@@ -5880,13 +5881,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 227216640}
+  - component: {fileID: 227216641}
   m_Layer: 5
   m_Name: Reward_RemoveBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &227216640
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5914,6 +5916,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &227216641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227216639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6407ad694d4a18a458bca08db86ee7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listLocalizationObject:
+  - m_text: {fileID: 889664943}
+    m_LangaugeKorean: "~\uC6B0\uB2E4\uB2E4 \uC2DC\uAC04~"
+    m_LangaugeEnglish: ~Time to get the zoomies!~
+  - m_text: {fileID: 426246570}
+    m_LangaugeKorean: "\uAC00\uC7A5 \uB9CE\uC740 \uC218\uC758  \uC624\uBE0C\uC81D\uD2B8\uAC00
+      \uC81C\uAC70\uB429\uB2C8\uB2E4."
+    m_LangaugeEnglish: The largest number of objects will be removed.
+  - m_text: {fileID: 567167710}
+    m_LangaugeKorean: "\uAD11\uACE0 \uC81C\uAC70 \uD6C4 \uD6A8\uACFC\uAC00 \uC801\uC6A9\uB429\uB2C8\uB2E4."
+    m_LangaugeEnglish: Applied after ad play.
 --- !u!1 &270644061
 GameObject:
   m_ObjectHideFlags: 0
@@ -12131,7 +12156,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 7.7, y: 258.1}
-  m_SizeDelta: {x: 384.8, y: 123.7}
+  m_SizeDelta: {x: 500, y: 123.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &619911695
 MonoBehaviour:
@@ -12960,7 +12985,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 7.7, y: 258.1}
-  m_SizeDelta: {x: 384.8, y: 123.7}
+  m_SizeDelta: {x: 500, y: 123.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889664943
 MonoBehaviour:
@@ -14054,7 +14079,7 @@ RectTransform:
   m_Children:
   - {fileID: 869564899}
   - {fileID: 679987203}
-  m_Father: {fileID: 1952854688}
+  m_Father: {fileID: 1840756561}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -16077,6 +16102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1393485471}
+  - component: {fileID: 1393485472}
   m_Layer: 5
   m_Name: Reward_CreateChuru
   m_TagString: Untagged
@@ -16111,6 +16137,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1393485472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393485470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6407ad694d4a18a458bca08db86ee7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listLocalizationObject:
+  - m_text: {fileID: 619911695}
+    m_LangaugeKorean: "~\uC7A0\uC790\uB294 \uACE0\uC591\uC774 \uAE68\uC6B0\uAE30~"
+    m_LangaugeEnglish: ~It's a treat!~
+  - m_text: {fileID: 92147663}
+    m_LangaugeKorean: "\uD2B9\uC815 \uC601\uC5ED\uC758 \uC624\uBE0C\uC81D\uD2B8\uAC00
+      \uC81C\uAC70\uB429\uB2C8\uB2E4."
+    m_LangaugeEnglish: Objects in a specific area will be removed.
+  - m_text: {fileID: 1867813752}
+    m_LangaugeKorean: "\uAD11\uACE0 \uC81C\uAC70 \uD6C4 \uD6A8\uACFC\uAC00 \uC801\uC6A9\uB429\uB2C8\uB2E4."
+    m_LangaugeEnglish: Applied after ad play.
 --- !u!1 &1395988905
 GameObject:
   m_ObjectHideFlags: 0
@@ -17097,7 +17146,7 @@ RectTransform:
   - {fileID: 5684077443647792405}
   - {fileID: 164854936}
   m_Father: {fileID: 1952854688}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -17142,7 +17191,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1952854688}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -17332,7 +17381,7 @@ RectTransform:
   m_Children:
   - {fileID: 447561827}
   - {fileID: 567604561}
-  m_Father: {fileID: 1952854688}
+  m_Father: {fileID: 1840756561}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -18185,6 +18234,52 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.2, y: 7}
   m_EdgeRadius: 0
+--- !u!1 &1840756560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1840756561}
+  - component: {fileID: 1840756563}
+  m_Layer: 5
+  m_Name: Panel_Back
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1840756561
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840756560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1068530194}
+  - {fileID: 1684702677}
+  m_Father: {fileID: 1952854688}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1840756563
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840756560}
+  m_CullTransparentMesh: 0
 --- !u!1 &1846573368
 GameObject:
   m_ObjectHideFlags: 0
@@ -19069,8 +19164,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1068530194}
-  - {fileID: 1684702677}
+  - {fileID: 1840756561}
   - {fileID: 1662658631}
   - {fileID: 1658052453}
   m_Father: {fileID: 0}

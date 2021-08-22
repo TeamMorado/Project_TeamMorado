@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
     public Canvas rootCanvas;
     RectTransform CanvasRect;
     public RectTransform panelRect;
+    public RectTransform backPanelRect;
     public List<Button> m_listButton = new List<Button>();
     public List<GameObject> m_listUIObject = new List<GameObject>();
     public List<Image> m_listImage = new List<Image>();
@@ -348,6 +349,9 @@ public class UIManager : MonoBehaviour
         anchorMax.y /= Screen.height;
         panelRect.anchorMin = anchorMin;
         panelRect.anchorMax = anchorMax;
+
+        backPanelRect.anchorMin = anchorMin;
+        backPanelRect.anchorMax = anchorMax;
     }
 
     public void SetBackGround(bool bActive)
